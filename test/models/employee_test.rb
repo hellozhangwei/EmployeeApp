@@ -14,6 +14,27 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
+  test "create contract" do
+
+    start_date = Date.parse('2020-01-01')
+    end_date = Date.parse('2020-12-31')
+    legal = 'Shinetech'
+
+    contract = Contract.new(start_date: start_date, end_date: end_date, legal: legal )
+    assert contract.save
+
+    contract = Contract.new(end_date: end_date, legal: legal )
+    assert contract.valid?
+
+    contract = Contract.new(start_date: start_date, legal: legal )
+    assert contract.valid?
+
+
+    contract = Contract.new(start_date: '2020-01-31', end_date: '2020-01-01', legal: legal )
+    assert !contract.valid?
+
+  end
+
   test "search employee" do
 
     employee = Employee.new(first_name: "David", last_name: "John")
