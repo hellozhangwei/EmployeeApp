@@ -23,6 +23,9 @@ class EmployeeTest < ActiveSupport::TestCase
     contract = Contract.new(start_date: start_date, end_date: end_date, legal: legal )
     assert contract.save
 
+    contract = Contract.new(start_date: start_date, end_date: end_date)
+    assert !contract.valid?
+
     contract = Contract.new(end_date: end_date, legal: legal )
     assert contract.valid?
 
