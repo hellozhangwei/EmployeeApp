@@ -145,7 +145,7 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
-  test "search current contract 1" do
+  test "search current contract if there is no end date" do
 
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save
@@ -162,20 +162,21 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
-   test "search current contract 2" do
+   test "search current contract if there is no start date" do
 
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save
 
-    contract = Contract.new(employee_id:employee.id, start_date: Date.parse('2020-01-01'), end_date: Date.parse('2020-01-31'), legal: 'Shinetech')
+    now = DateTime.now
+    contract = Contract.new(employee_id:employee.id, start_date: now + 2, end_date: now + 3, legal: 'Shinetech')
     contract.save
 
     now = DateTime.now
-    contract = Contract.new(employee_id:employee.id, end_date: '2019-12-31', legal: 'Shinetech')
+    contract = Contract.new(employee_id:employee.id, end_date: now + 1, legal: 'Shinetech')
     contract.save
 
     contract_list = EmployeeService.new.searchCurrentContract employee.id
-    assert contract_list.all.length == 0
+    assert contract_list.all.length == 1
 
   end
 
