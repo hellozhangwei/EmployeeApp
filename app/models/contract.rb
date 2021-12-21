@@ -3,6 +3,7 @@ class Contract < Sequel::Model
   def validate
     super
     errors.add(:legal, 'cannot be empty') if !legal || legal.empty?
+    errors.add(:employee_id, 'cannot be empty') if employee_id.nil?
     validates_date(start_date, end_date)
     overlap_date(start_date, end_date, legal)
   end
