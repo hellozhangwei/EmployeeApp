@@ -123,4 +123,60 @@ class EmployeeTest < ActiveSupport::TestCase
     assert employee_list.first.contracts.first.legal == 'Shinetech'
    
   end
+
+  test "search current contract" do
+
+    employee = Employee.new(first_name: "David", last_name: "John")
+    employee.save
+
+    contract = Contract.new(employee_id:employee.id, start_date: Date.parse('2020-01-01'), end_date: Date.parse('2020-01-31'), legal: 'Shinetech')
+    contract.save
+
+    now = DateTime.now
+    contract = Contract.new(employee_id:employee.id, start_date: (now - 1), end_date: (now + 1), legal: 'Shinetech')
+    contract.save
+
+    now = DateTime.now
+    contract = Contract.new(employee_id:employee.id, start_date: (now + 2), legal: 'Shinetech')
+    contract.save
+
+    contract_list = EmployeeService.new.searchCurrentContract employee.id
+    assert contract_list.all.length == 1
+
+  end
+
+  test "search current contract 1" do
+
+    employee = Employee.new(first_name: "David", last_name: "John")
+    employee.save
+
+    contract = Contract.new(employee_id:employee.id, start_date: Date.parse('2020-01-01'), end_date: Date.parse('2020-01-31'), legal: 'Shinetech')
+    contract.save
+
+    now = DateTime.now
+    contract = Contract.new(employee_id:employee.id, start_date: '2020-02-01', legal: 'Shinetech')
+    contract.save
+
+    contract_list = EmployeeService.new.searchCurrentContract employee.id
+    assert contract_list.all.length == 1
+
+  end
+
+   test "search current contract 2" do
+
+    employee = Employee.new(first_name: "David", last_name: "John")
+    employee.save
+
+    contract = Contract.new(employee_id:employee.id, start_date: Date.parse('2020-01-01'), end_date: Date.parse('2020-01-31'), legal: 'Shinetech')
+    contract.save
+
+    now = DateTime.now
+    contract = Contract.new(employee_id:employee.id, end_date: '2019-12-31', legal: 'Shinetech')
+    contract.save
+
+    contract_list = EmployeeService.new.searchCurrentContract employee.id
+    assert contract_list.all.length == 0
+
+  end
+
 end

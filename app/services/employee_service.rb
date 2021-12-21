@@ -6,12 +6,13 @@ class EmployeeService
       return
     end
 
-    Employee.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") | Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%"))
+    Employee.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") || Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%"))
   end
 
 
-  def createContract(employee_id, start_date, end_date, legal)
-    Contract.new(employee_id: employee_id, start_date: start_date, end_date: end_date, legal: legal )
-    #Contract.create(employee_id: employee_id, start_date: start_date, end_date: end_date, legal: legal )
+  def searchCurrentContract(employee_id)
+    
+    now = DateTime.now
+    Contract.where(Sequel.lit('employee_id = ? AND (start_date is null OR start_date<=?) AND (end_date is null OR end_date >=?)', employee_id, now, now))
   end
 end
