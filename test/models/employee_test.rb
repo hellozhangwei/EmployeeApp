@@ -52,62 +52,109 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
-  test "create contract date overlap with end date nil" do
-    start_date = Date.parse('2020-01-01')
-    end_date = Date.parse('2020-12-31')
-    legal = 'Shinetech'
+  test "create contract date overlap with start date and end date are nil in db" do
 
+    legal = 'Shinetech'
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save
     employee_id = employee.id
 
-    contract = Contract.new(employee_id:employee_id,start_date: start_date, end_date: end_date, legal: legal)
-    assert contract.save
+    contract = Contract.new(employee_id:employee_id, legal: legal)
+    contract.save
 
-    contract = Contract.new(employee_id:employee_id,start_date: start_date, legal: legal)
+    contract = Contract.new(employee_id:employee_id, legal: legal)
     assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, start_date: '2020-01-01', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, start_date: '2020-01-01', end_date: '2020-01-02', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, end_date: '2020-01-01', legal: legal)
+    assert !contract.valid?
+
   end
 
-  test "create contract date overlap with start date nil" do
-    start_date = Date.parse('2020-01-01')
-    end_date = Date.parse('2020-12-31')
+test "create contract date overlap with start date is nil in db" do
+
     legal = 'Shinetech'
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save
     employee_id = employee.id
 
-    contract = Contract.new(employee_id:employee_id,start_date: start_date, end_date: end_date, legal: legal)
-    assert contract.save
+    contract = Contract.new(employee_id:employee_id, end_date: '2020-01-01', legal: legal)
+    contract.save
 
-    contract = Contract.new(employee_id:employee_id,end_date: end_date, legal: legal)
-    assert !contract.valid?
-  end
-
-  test "create contract date overlap with start date and end_date" do
-    start_date = Date.parse('2020-01-01')
-    end_date = Date.parse('2020-01-31')
-    legal = 'Shinetech'
-
-    employee = Employee.new(first_name: "David", last_name: "John")
-    employee.save
-    employee_id = employee.id
-
-    contract = Contract.new(employee_id:employee_id,start_date: start_date, end_date: end_date, legal: legal)
-    assert contract.save
-
-    contract = Contract.new(employee_id:employee_id,start_date: Date.parse('2020-01-02'), end_date: Date.parse('2020-02-02'), legal: legal)
-    assert !contract.valid?
-
-    contract = Contract.new(employee_id:employee_id,start_date: Date.parse('2020-02-01'), end_date: Date.parse('2020-02-28'), legal: legal)
+    contract = Contract.new(employee_id:employee_id, start_date:'2020-01-02', legal: legal)
     assert contract.valid?
 
-    contract = Contract.new(employee_id:employee_id,start_date: Date.parse('2019-01-01'), end_date: Date.parse('2019-12-31'), legal: legal)
-    assert contract.valid?
+    contract = Contract.new(employee_id:employee_id, start_date:'2019-12-31', legal: legal)
+    assert !contract.valid?
 
-    contract = Contract.new(employee_id:employee_id,legal: legal)
+    contract = Contract.new(employee_id:employee_id, end_date:'2019-12-31', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, end_date:'2020-01-02', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, legal: legal)
     assert !contract.valid?
 
   end
+
+  test "create contract date overlap with end date is nil in db" do
+    legal = 'Shinetech'
+    employee = Employee.new(first_name: "David", last_name: "John")
+    employee.save
+    employee_id = employee.id
+
+    contract = Contract.new(employee_id:employee_id, start_date: '2020-01-01', legal: legal)
+    contract.save
+
+    contract = Contract.new(employee_id:employee_id, end_date:'2019-12-31', legal: legal)
+    assert contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, end_date:'2020-01-02', legal: legal)
+    assert !contract.valid?
+
+
+    contract = Contract.new(employee_id:employee_id, start_date:'2019-12-31', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, start_date:'2020-01-02', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, legal: legal)
+    assert !contract.valid?
+  end
+
+
+test "create contract date overlap with start date and end date are not null in db" do
+    legal = 'Shinetech'
+    employee = Employee.new(first_name: "David", last_name: "John")
+    employee.save
+    employee_id = employee.id
+
+    contract = Contract.new(employee_id:employee_id, start_date: '2020-01-01', end_date:'2020-12-31', legal: legal)
+    contract.save
+
+    contract = Contract.new(employee_id:employee_id, end_date:'2019-12-31', legal: legal)
+    assert contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, start_date:'2021-01-01', legal: legal)
+    assert contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, end_date:'2020-01-02', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, start_date:'2020-01-02', legal: legal)
+    assert !contract.valid?
+
+    contract = Contract.new(employee_id:employee_id, legal: legal)
+    assert !contract.valid?
+  end
+
 
   test "search employee" do
 
