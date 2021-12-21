@@ -113,9 +113,14 @@ class EmployeeTest < ActiveSupport::TestCase
 
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save
+
+    contract = Contract.new(employee_id:employee.id, start_date: '2020-01-01', end_date: '2020-01-31', legal: 'Shinetech')
+    assert contract.save
+
     employee_list = EmployeeService.new.search 'david'
 
     assert employee_list.first.first_name== 'David'
+    assert employee_list.first.contracts.first.legal == 'Shinetech'
    
   end
 end
