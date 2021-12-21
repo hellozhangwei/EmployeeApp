@@ -9,13 +9,6 @@ Sequel.migration do
       column :expired_at, "date"
     end
     
-    create_table(:contracts) do
-      primary_key :id, :type=>"INTEGER"
-      column :start_date, "date"
-      column :end_date, "date"
-      column :legal, "varchar(255)"
-    end
-    
     create_table(:employee_versions) do
       primary_key :id, :type=>"INTEGER"
       column :master_id, "INTEGER"
@@ -38,6 +31,14 @@ Sequel.migration do
       
       primary_key [:filename]
     end
+    
+    create_table(:contracts) do
+      primary_key :id, :type=>"INTEGER"
+      column :start_date, "date"
+      column :end_date, "date"
+      column :legal, "varchar(255)"
+      foreign_key :employee_id, :employees, :type=>"INTEGER"
+    end
   end
 end
               Sequel.migration do
@@ -46,5 +47,6 @@ end
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011212_create_contracts.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011317_create_employee_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011329_create_contract_versions.rb')"
+self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211217080841_add_employee_to_contract.rb')"
                 end
               end
