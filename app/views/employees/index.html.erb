@@ -1,7 +1,7 @@
 <h1>Employees</h1>
 
 <form>
-  <p><strong>This is just a test form. It doesn't do anything.</strong></p>
+  <p><strong>Please enter something for searching.</strong></p>
 
   <p>
   <label>Name contains</label><br>
@@ -22,7 +22,7 @@
     <% @employees.each do |employee| %>
     <tr>
       <td><%=employee.id%></td>
-      <td><%=employee.first_name%>&nbsp;<%=employee.last_name%></td>
+      <td><a href="/employees/<%= employee.id %>"><%=employee.first_name%>&nbsp;<%=employee.last_name%></a></td>
       <td><%=employee.address%></td>
     </tr>
      <% end %>

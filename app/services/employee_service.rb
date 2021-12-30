@@ -2,13 +2,13 @@ class EmployeeService
 
   def search (name)
 
-    if name.nil?
+    # todo pagination
+    
+    if name.nil? || name.strip.empty?
       puts "==========name is nil======"
-      return []
+      return Employee.all
     end
 
-    # todo check name is empty
-    
     Employee.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") | Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%"))
   end
 
