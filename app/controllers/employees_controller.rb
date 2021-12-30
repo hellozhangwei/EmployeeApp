@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
   def index
-    @employees = Employee.all
+    @employees = EmployeeService.new.search(params[:name])
   end
 end

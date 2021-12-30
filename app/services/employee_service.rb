@@ -3,10 +3,13 @@ class EmployeeService
   def search (name)
 
     if name.nil?
-      return
+      puts "==========name is nil======"
+      return []
     end
 
-    Employee.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") || Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%"))
+    # todo check name is empty
+    
+    Employee.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") | Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%"))
   end
 
 
