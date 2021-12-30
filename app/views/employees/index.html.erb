@@ -1,0 +1,22 @@
+<h1>Employees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th width="10%">ID</th>
+      <th width="20%">First Name</th>
+      <th width="20%">Last Name</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %>
+    <tr>
+      <td><%=employee.id%></td>
+      <td><%=employee.first_name%></td>
+      <td><%=employee.last_name%></td>
+      <td><%=employee.address%></td>
+    </tr>
+     <% end %>
+  </tbody>
+</table>

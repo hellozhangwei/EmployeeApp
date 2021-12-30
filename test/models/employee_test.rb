@@ -76,7 +76,7 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
-test "create contract date overlap with start date is nil in db" do
+  test "create contract date overlap with start date is nil in db" do
 
     legal = 'Shinetech'
     employee = Employee.new(first_name: "David", last_name: "John")
@@ -130,7 +130,7 @@ test "create contract date overlap with start date is nil in db" do
   end
 
 
-test "create contract date overlap with start date and end date are not null in db" do
+  test "create contract date overlap with start date and end date are not null in db" do
     legal = 'Shinetech'
     employee = Employee.new(first_name: "David", last_name: "John")
     employee.save

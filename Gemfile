@@ -26,6 +26,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem "sqlite3"   # for Sqlite
 gem "sequel_bitemporal"
 gem "sequel-rails"
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
