@@ -1,5 +1,7 @@
 # README
 
+Load demo data by rake db:seed
+
 Implement in Ruby on Rails, for the following problem:  model employees and contracts in a bitemporal database.
 
 Models and attributes

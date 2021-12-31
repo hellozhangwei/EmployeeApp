@@ -1,27 +1,76 @@
-<form action="/employees/<%= @employee.id %>" accept-charset="UTF-8" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <div>
-    <label for="employee_first_name">First Name</label><br>
-    <input type="text" name="employee[first_name]" id="employee_first_name" value="<%= @employee.first_name %>">
-  </div>
+<header>
+  <h1>Edit Employee</h1> 
+</header>
 
+<style type="text/css">
+  .panel {
+    padding: 1rem 1.4rem;
+    margin: 1rem;
+    max-width: 100%;
+    overflow: auto;
+    overflow-x: auto;
+    color: var(--preformatted);
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+  }
+</style>
+<!--div class="panel">
+  
   <div>
-    <label for="employee_last_name">Last Name</label><br>
-    <input type="text" name="employee[last_name]" id="employee_last_name" value="<%= @employee.last_name %>"></input>
+    <label for="employee_date">Valid From Date</label><br>
+    <input type="date" name="valid_date" value="<%=Date.today%>">
   </div>
+</div-->
+<div class="panel">
+  <form action="/employees/<%= @employee.id %>" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <div>
+      <label for="employee_first_name">First Name</label><br>
+      <input type="text" name="employee[first_name]" id="employee_first_name" value="<%= @employee.first_name %>">
+    </div>
 
-  <div>
-    <label for="employee_address">Address</label><br>
-    <input type="text" name="employee[address]" id="employee_address" value="<%= @employee.address %>"></textarea>
-  </div>
+    <div>
+      <label for="employee_last_name">Last Name</label><br>
+      <input type="text" name="employee[last_name]" id="employee_last_name" value="<%= @employee.last_name %>"></input>
+    </div>
 
-  <div>
-    <label for="employee_date">Date</label><br>
-    <input type="date" name="date">
-  </div>
+    <div>
+      <label for="employee_address">Current Address[<%=@employee.current_version ? @employee.current_version.id : ''%>]</label><br>
+      <input type="text" name="employee[address]" id="employee_address" value="<%=@employee.current_version ? @employee.current_version.address : @employee.address%>"></input>
+      
+    </div>
+    <div>
+      <label for="employee_date">Valid From Date</label><br>
+      <input type="date" name="date" value="<%=@employee.current_version ? @employee.current_version.valid_from : ''%>">
+    </div>
 
-  <div>
-    <input type="submit" name="commit" value="Save" data-disable-with="Save">
-  </div>
-</form>
+    <div>
+      <input type="submit" name="commit" value="Save" data-disable-with="Save">
+    </div>
+  </form>
+</div>
+  <h3>Address Versions</h3>
+  <table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>address</th>
+      <th>valid_from</th>
+      <th>valid_to</th>
+      <th>expired_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employee.versions.each do |version| %>
+    <tr>
+      <td><%=version.id%></td>
+      <td><%=version.address%></td>
+      <td><%=version.valid_from%></td>
+      <td><%=version.valid_to%></td>
+      <td><%=version.expired_at%></td>
+    </tr>
+     <% end %>
+  </tbody>
+</table>
 
