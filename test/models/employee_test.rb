@@ -227,4 +227,16 @@ class EmployeeTest < ActiveSupport::TestCase
 
   end
 
+  test "defines current_versions_dataset" do
+    initial_today = Date.today
+    employee = Employee.new
+    employee.update_attributes first_name: "Single Standard", valid_from: initial_today+1
+    employee.update_attributes first_name: "King Size", valid_from: initial_today+2
+
+    versions = employee.versions
+    current_version = employee.current_version
+    assert versions.size == 3
+    # assert versions[2].first_name == "King Size"
+  end
+
 end

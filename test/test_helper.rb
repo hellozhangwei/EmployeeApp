@@ -4,6 +4,8 @@ require "rails/test_help"
 
 DatabaseCleaner[:sequel].strategy = :transaction
 
+Sequel::Model.strict_param_setting = false
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors)
