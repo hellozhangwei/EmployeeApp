@@ -8,6 +8,7 @@ Sequel.migration do
       Date :valid_to
       Date :created_at
       Date :expired_at
+      Text :address
     end
 
   end

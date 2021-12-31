@@ -16,6 +16,7 @@ Sequel.migration do
       column :valid_to, "date"
       column :created_at, "date"
       column :expired_at, "date"
+      column :address, "TEXT"
     end
     
     create_table(:employees) do
@@ -45,8 +46,8 @@ end
                 change do
                   self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011203_create_employees.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011212_create_contracts.rb')"
-self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011317_create_employee_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211216011329_create_contract_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211217080841_add_employee_to_contract.rb')"
+self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20211231060036_create_employee_versions.rb')"
                 end
               end
