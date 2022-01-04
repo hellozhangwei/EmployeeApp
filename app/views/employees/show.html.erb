@@ -7,6 +7,17 @@
 </header>
 
 
+<form action="/employees/<%= @employee.id %>" accept-charset="UTF-8" method="get">
+  <div>
+    <label for="employee_date">Valid From Date</label><br>
+    <input type="date" name="date" value="<%=params[:date] ? params[:date] : Date.today%>">
+  </div>
+
+  <div>
+    <input type="submit" name="commit" value="Search version by date" data-disable-with="Save">
+  </div>
+</form>
+
 <p>
   <label>Name</label><br>
   <b><%= @employee.first_name %> &nbsp; <%= @employee.last_name %></b>
@@ -14,7 +25,7 @@
 
 <p>
   <label>Address</label><br>
-  <b><%= @employee.address %></b>
+  <b><%= @employee_version ? @employee_version.first.address : @employee.address %></b>
 </p>
 
 <hr style="width: 100%" />
