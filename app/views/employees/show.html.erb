@@ -25,7 +25,7 @@
 
 <p>
   <label>Address</label><br>
-  <b><%= @employee_version ? @employee_version.first.address : @employee.address %></b>
+  <b><%=@employee.current_version.address%></b>
 </p>
 
 <hr style="width: 100%" />

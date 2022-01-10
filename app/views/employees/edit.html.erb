@@ -26,27 +26,27 @@
   <form action="/employees/<%= @employee.id %>" accept-charset="UTF-8" method="post">
     <input type="hidden" name="_method" value="patch">
     <div>
-      <label for="employee_first_name">First Name</label><br>
-      <input type="text" name="employee[first_name]" id="employee_first_name" value="<%= @employee.first_name %>">
+      <label for="employee_first_name">First Name</label>:
+      <b><%=@employee.first_name%></b>
     </div>
 
     <div>
-      <label for="employee_last_name">Last Name</label><br>
-      <input type="text" name="employee[last_name]" id="employee_last_name" value="<%= @employee.last_name %>"></input>
+      <label for="employee_last_name">Last Name</label>:
+      <b><%=@employee.last_name%></b>
     </div>
 
     <div>
-      <label for="employee_address">Current Address[<%=@employee.current_version ? @employee.current_version.id : ''%>]</label><br>
-      <input type="text" name="employee[address]" id="employee_address" value="<%=@employee.current_version ? @employee.current_version.address : @employee.address%>"></input>
+      <label for="employee_address">Current Address</label><br>
+      <input type="text" name="address" value="<%=@employee.current_version.address%>"></input>
       
     </div>
     <div>
       <label for="employee_date">Valid From Date</label><br>
-      <input type="date" name="date" value="<%=@employee.current_version ? @employee.current_version.valid_from : ''%>">
+      <input type="date" name="date" value="<%=@employee.current_version.valid_from%>">
     </div>
 
     <div>
-      <input type="submit" name="commit" value="Save" data-disable-with="Save">
+      <input type="submit" name="commit" value="Change Address">
     </div>
   </form>
 </div>
