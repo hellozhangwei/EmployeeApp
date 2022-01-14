@@ -52,4 +52,4 @@ Open http://127.0.0.1:3000, you will get a employee list page
 
 rake db:migrate RAILS_ENV=test
 
-rails test test/models
+rake test test/models
