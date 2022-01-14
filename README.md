@@ -1,6 +1,6 @@
 # README
 
-Load demo data by rake db:seed
+## 1. Requirements
 
 Implement in Ruby on Rails, for the following problem:  model employees and contracts in a bitemporal database.
 
@@ -29,3 +29,25 @@ Use test-driven development.
 You find the bitemporal plugin at https://github.com/TalentBox/sequel_bitemporal. It is a public repo.
 
 The most important part of the exercise is marked with ***.
+
+## 2. Run
+
+Install ruby 3.0
+
+Install Rails 6.1.4.4
+
+git clone https://github.com/zhangwei1979/EmployeeApp.git
+
+rake db:migrate
+
+rake db:seed
+
+rails s
+
+Open http://127.0.0.1:3000, you will get a employee list page
+
+## 3. Test
+
+rake db:migrate RAILS_ENV=test
+
+rails test test/models
