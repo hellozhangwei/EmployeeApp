@@ -42,6 +42,8 @@ rake db:migrate
 
 rake db:seed
 
+bundle exec rake webpacker:install
+
 rails s
 
 Open http://127.0.0.1:3000, you will get a employee list page
